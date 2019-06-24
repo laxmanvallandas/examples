@@ -40,6 +40,7 @@ func ListRangeHandler(rw http.ResponseWriter, req *http.Request) {
 	rw.Write(membersJSON)
 }
 
+//ListPushHandler - to handle push notifications
 func ListPushHandler(rw http.ResponseWriter, req *http.Request) {
 	key := mux.Vars(req)["key"]
 	value := mux.Vars(req)["value"]
