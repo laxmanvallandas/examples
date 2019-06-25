@@ -23,7 +23,7 @@
             "containers":[
                {
                   "name":"guestbook",
-                  "image":"k8s.gcr.io/guestbook:v3",
+                  "image":"laxman-guestbook",
                   "ports":[
                      {
                         "name":"http-server",
