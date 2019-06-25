@@ -19,7 +19,7 @@ node{
   
   //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
-      sh("docker login -u laxman -p ${DOCKER_HUB})
+      sh("docker login -u laxman -p ${DOCKER_HUB}")
       sh("docker push ${imageTag}")
   }
   
