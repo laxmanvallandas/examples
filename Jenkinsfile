@@ -1,6 +1,6 @@
 node{
   //Define all variables
-  def project = 'laxmanvallandas'
+  def project = 'laxman'
   def appName = 'guestbook-go'
   def serviceName = "${appName}-backend"  
   def imageVersion = 'development'
