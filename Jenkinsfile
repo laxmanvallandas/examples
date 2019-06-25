@@ -12,6 +12,7 @@ node{
   
   //Stage 1 : Build the docker image.
   stage('Build image') {
+      sh("sudo su")
       sh("docker build -t ${imageTag} -f /var/lib/jenkins/workspace/guestbook/guestbook-go/Dockerfile .")
   }
   
