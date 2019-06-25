@@ -3,6 +3,7 @@
    "apiVersion":"v1",
    "metadata":{
       "name":"redis-master",
+      "namespace":"development",
       "labels":{
          "app":"redis",
          "role":"master"

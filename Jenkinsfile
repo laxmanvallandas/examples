@@ -12,8 +12,8 @@ node{
   
   //Stage 1 : Build the docker image.
   stage('Build image') {
-      sh("cd guestbook-go")
-      sh("docker build -t ${imageTag} -f /var/lib/jenkins/workspace/guestbook-go/Dockerfile .")
+      sh("cd guestboook/guestbook-go")
+      sh("docker build -t ${imageTag}  .")
   }
   
   //Stage 2 : Push the image to docker registry
