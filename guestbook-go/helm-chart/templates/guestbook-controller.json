@@ -24,6 +24,12 @@
                {
                   "name":"guestbook",
                   "image":"laxman/IMAGE-TAG",
+                  "env": [
+                     {
+                        "name": "GET_HOSTS_FROM",
+                        "value": "dns"
+                     }
+                  ],
                   "ports":[
                      {
                         "name":"http-server",
