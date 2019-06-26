@@ -26,7 +26,7 @@
             "containers":[
                {
                   "name":"redis-slave",
-                  "image":"kubernetes/redis-slave:v2",
+                  "image":"sarath7112/redis-slave",
                   "ports":[
                      {
                         "name":"redis-server",
