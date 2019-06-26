@@ -26,7 +26,7 @@
             "containers":[
                {
                   "name":"redis-slave",
-                  "image":"sarath7112/redis-slave",
+                  "image":"kubeguide/guestbook-redis-slave",
                   "ports":[
                      {
                         "name":"redis-server",
