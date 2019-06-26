@@ -5,20 +5,20 @@ node{
   def serviceName = "${appName}-backend"  
   def imageVersion = 'development'
   def namespace = 'development'
-  def imageTag = "${project}/${appName}:${imageVersion}.${env.BUILD_NUMBER}"
+  def imageTag = "${appName}:${imageVersion}.${env.BUILD_NUMBER}"
   
   //Checkout Code from Git
   checkout scm
   
   //Stage 1 : Build the docker image.
   stage('Build image') {
-      sh("docker build -t ${imageTag} -f /var/lib/jenkins/workspace/guestbook/guestbook-go/Dockerfile .")
+    sh("docker build -t ${project}/${imageTag} -f /var/lib/jenkins/workspace/guestbook/guestbook-go/Dockerfile .")
   }
   
   //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
       sh("docker login -u laxman -p ${DOCKER_HUB}")
-      sh("docker push ${imageTag}")
+      sh("docker push ${project}/${imageTag}")
   }
   
   //Stage 3 : Deploy Application
@@ -27,7 +27,7 @@ node{
               //Roll out to Dev Environment
               case "development":
                    // Create namespace if it doesn't exist
-                   sh("sed -i.bak 's/${project}-guestbook/${imageTag}/g' guestbook-go/helm-chart/templates/guestbook-controller.json")
+         sh("sed -i.bak 's/${project}-guestbook/${project}\/${imageTag}/g' guestbook-go/helm-chart/templates/guestbook-controller.json")
                    sh("helm install --name guestbook ./guestbook-go/helm-chart")
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
