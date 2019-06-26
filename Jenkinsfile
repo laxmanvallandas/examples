@@ -28,7 +28,7 @@ node{
               case "development":
                    // Create namespace if it doesn't exist
                    sh("sed -i.bak 's/IMAGE-TAG/${imageTag}/g' guestbook-go/helm-chart/templates/guestbook-controller.json")
-                   sh("helm install --name guestbook --namespace development ./guestbook-go/helm-chart")
+                   sh("helm install --name guestbook --tiller-namespace development --namespace development ./guestbook-go/helm-chart")
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
   }
