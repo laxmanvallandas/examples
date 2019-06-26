@@ -27,7 +27,7 @@ node{
               //Roll out to Dev Environment
               case "development":
                    // Create namespace if it doesn't exist
-         sh("sed -i.bak 's/IMAGE-TAG/${imageTag}/g' guestbook-go/helm-chart/templates/guestbook-controller.json")
+                   sh("sed -i.bak 's/IMAGE-TAG/${imageTag}/g' guestbook-go/helm-chart/templates/guestbook-controller.json")
                    sh("helm install --name guestbook ./guestbook-go/helm-chart")
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
