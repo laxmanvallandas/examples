@@ -17,7 +17,7 @@
 apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
 kubernetesVersion: stable
-# REPLACE with `loadbalancer` IP
+#REPLACE with `loadbalancer` IP
 controlPlaneEndpoint: "10.128.0.8:6443"  // If loadbalancer is deployed then provide load balancer IP here.
 networking:
   podSubnet: 192.168.0.0/18
@@ -69,7 +69,7 @@ http://<JenkinsServerIP>:8080/github-webhook/
   Using helm, Upgrade Guestbook Application.
   Rollback of Application is not automated, as part of this script, but can be triggered manually upon failure.
   Sample command below:
-  # helm del --purge guestbook --tiller-namespace development
+  #helm del --purge guestbook --tiller-namespace development
  
  # Create a monitoring namespace in the cluster.
 command: kubectl create ns monitoring
