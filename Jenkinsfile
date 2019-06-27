@@ -6,7 +6,8 @@ node{
   def imageVersion = 'development'
   def namespace = 'development'
   def imageTag = "${appName}:${imageVersion}.${env.BUILD_NUMBER}"
-  
+  def verType = sh returnStdout: true, script: 'helm history guestbook --tiller-namespace development|tail -1|cut -f 3'
+  echo verType
   //Checkout Code from Git
   checkout scm
   
@@ -28,8 +29,14 @@ node{
               case "development":
                    // Create namespace if it doesn't exist
                    sh("sed -i.bak 's/IMAGE-TAG/${imageTag}/g' guestbook/php-redis/helm-chart/templates/guestbook-all-in-one.yaml")
-                   sh("helm install --name guestbook --tiller-namespace development --namespace development ./guestbook/php-redis/helm-chart")
-                   //sh("echo http://`kubectl --namespace=${namespace} get service/guestbook --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > guestbook")
+		   if(verType == "DEPLOYED"){
+		     sh("helm upgrade guestbook --tiller-namespace development ./guestbook/php-redis/helm-chart")
+		   }else{
+                     sh("helm install --name guestbook --tiller-namespace development --namespace development ./guestbook/php-redis/helm-chart")
+                   //Rollback when both upgrade fails.
+		   //# helm rollback <name >1 --tiller-namespace development 
+		     //sh("echo http://`kubectl --namespace=${namespace} get service/guestbook --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > guestbook")
+		   }
                    break
   }
 }
