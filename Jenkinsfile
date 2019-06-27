@@ -7,7 +7,7 @@ node{
   def namespace = 'development'
   def imageTag = "${appName}:${imageVersion}.${env.BUILD_NUMBER}"
   def verType = sh returnStdout: true, script: 'helm history guestbook --tiller-namespace development|tail -1|cut -f 3'
-  echo verType
+  echo 'testing'+verType+'string'
   //Checkout Code from Git
   checkout scm
   
