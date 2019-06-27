@@ -29,7 +29,7 @@ node{
               case "development":
                    // Create namespace if it doesn't exist
                    sh("sed -i.bak 's/IMAGE-TAG/${imageTag}/g' guestbook/php-redis/helm-chart/templates/guestbook-all-in-one.yaml")
-		   if(verType == "DEPLOYED"){
+		   if(verType.equals('DEPLOYED'){
 		     sh("helm upgrade guestbook --tiller-namespace development ./guestbook/php-redis/helm-chart")
 		   }else{
                      sh("helm install --name guestbook --tiller-namespace development --namespace development ./guestbook/php-redis/helm-chart")
