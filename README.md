@@ -79,7 +79,7 @@ command: kubectl create ns monitoring
 helm install stable/prometheus --name prom --values guestbook/prometheus/prom.values --namespace monitoring --tiller-namespace development
 
 # Setup Grafana using Helm:
-helm install stable/grafana --tiller-namespace development --namespace monitoring --values grafana.values --name grafana
+helm install stable/grafana --tiller-namespace development --namespace monitoring --values guestbook/prometheus/grafana.values --name grafana
 
 # Add Prometheus as Data Source in Grafana Dashboard to get the statistics of kubernetes cluster in the UI.
 1. Add Prometheus IP address in the URL and add to Grafana Dashboard.
