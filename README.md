@@ -33,6 +33,7 @@ Note: Tokens will expire by default 1 hour for security purpose. By passing --to
 8. Choose the network plugin over which pods communicate inside the cluster. For calico,
 #kubectl apply -f https://gist.githubusercontent.com/joshrosso/ed1f5ea5a2f47d86f536e9eee3f1a2c2/raw/dfd95b9230fb3f75543706f3a95989964f36b154/calico-3.5.yaml
 9. Your HA Kubernetes cluster must be up and running.
+10. To Validate HA by bringing down one the master node and deploy any sample application. 
 
 # Create a development namespace
  command: kubectl create ns development
@@ -95,4 +96,5 @@ And commit the changes, REFRESH guestbook URL to Observe the change.
 
 
 
-# All files and modifications required to deploy guestbook application has been checked into https://github.com/laxmanvallandas/examples.git
+Note: All files and modifications required to deploy guestbook application has been checked into 
+https://github.com/laxmanvallandas/examples.git
