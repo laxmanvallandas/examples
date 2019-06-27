@@ -35,8 +35,7 @@ node{
 		   }else{
                      sh("helm install --name guestbook --tiller-namespace development --namespace development ./guestbook/php-redis/helm-chart")
 		   }
-                   
-			//Rollback when both upgrade fails.
+                   //Rollback when both upgrade fails.
 		   //# helm rollback <name >1 --tiller-namespace development 
 		     //sh("echo http://`kubectl --namespace=${namespace} get service/guestbook --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > guestbook")
 	   
