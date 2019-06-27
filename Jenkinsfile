@@ -1,5 +1,4 @@
 node{
-
   //Define all variables
   def project = 'laxman'
   def appName = 'guestbook'
