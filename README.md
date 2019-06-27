@@ -92,7 +92,8 @@ background-color: #d24dff
 }
 </style>
 
-And commit the changes, REFRESH guestbook URL to Observe the change. 
+-> commit the change
+-> REFRESH guestbook URL to Observe the change. 
 
 
 
