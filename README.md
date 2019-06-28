@@ -14,13 +14,18 @@
 1. Install docker (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 2. Install kubelet kubeadm and kubelet (https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 3. Copy below into kubeadm-config.yaml file
+
 apiVersion: kubeadm.k8s.io/v1beta1
+
 kind: ClusterConfiguration
+
 kubernetesVersion: stable
-#REPLACE with `loadbalancer` IP
-controlPlaneEndpoint: "10.128.0.8:6443"  // If loadbalancer is deployed then provide load balancer IP here.
+
+controlPlaneEndpoint: "<LB>:6443"  // USE loadbalancer IP here. 
+  
 networking:
-  podSubnet: 192.168.0.0/18
+  podSubnet: 192.168.0.0/18 // Ensure this do not conflict with internal network
+  
 4. Run below command to bring up kubernetes cluster which includes core-dns, kube-proxy, etcd, kube-apiserver, kube-scheduler, kube-controller-manager, kubelet.
 #kubeadm init --config=/etc/kubernetes/kubeadm/kubeadm-config.yaml --upload-certs
 5. Above command will provides two commands as output. One with --control-plane used by other nodes to join as master and another without --control-plane will be used by other nodes to join as worker nodes.
