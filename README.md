@@ -14,7 +14,7 @@
 1. Install docker (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 2. Install kubelet kubeadm and kubelet (https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 3. Copy below into kubeadm-config.yaml file
-
+----------------------------------------------------
 apiVersion: kubeadm.k8s.io/v1beta1
 
 kind: ClusterConfiguration
@@ -25,18 +25,27 @@ controlPlaneEndpoint: "<LB>:6443"  // USE loadbalancer IP here.
   
 networking:
   podSubnet: 192.168.0.0/18 // Ensure this do not conflict with internal network
-  
+ 
+ ----------------------------------------------------
 4. Run below command to bring up kubernetes cluster which includes core-dns, kube-proxy, etcd, kube-apiserver, kube-scheduler, kube-controller-manager, kubelet.
+
 #kubeadm init --config=/etc/kubernetes/kubeadm/kubeadm-config.yaml --upload-certs
+
 5. Above command will provides two commands as output. One with --control-plane used by other nodes to join as master and another without --control-plane will be used by other nodes to join as worker nodes.
 Note: Tokens will expire by default 1 hour for security purpose. By passing --token-ttl 0, we can make the token valid indefinite time period.(Not suggested)
 6. Execute below commands to run kubectl commands on master node:
+  
   mkdir -p $HOME/.kube
+  
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  
 7. kubectl commands can be run from other nodes by copying above config file and by following about steps.
 8. Choose the network plugin over which pods communicate inside the cluster. For calico,
+
 #kubectl apply -f https://gist.githubusercontent.com/joshrosso/ed1f5ea5a2f47d86f536e9eee3f1a2c2/raw/dfd95b9230fb3f75543706f3a95989964f36b154/calico-3.5.yaml
+
 9. Your HA Kubernetes cluster must be up and running.
 10. To Validate HA by bringing down one the master node and deploy any sample application. 
 
@@ -50,12 +59,16 @@ Helm Client Installation on Jenkins server and Tiller(Helm Server) on Kubernetes
 $ gunzip helm-v2.8.1-linux-amd64.tar.gz
 $ tar -xvf helm-v2.8.1-linux-amd64.tar
 $ sudo mv l*/helm /usr/local/bin/.
-3. Run below command install helm components
+3. Run below command install helm components,
 #helm init
+
 4. Run below commands to setup kubernetes credentials:
+
 #kubectl create serviceaccount --namespace kube-system tiller
+
 #kubectl create clusterrolebinding tiller-cluster-rule \
    --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+
 #kubectl patch deploy --namespace kube-system tiller-deploy \
    -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
 
@@ -69,13 +82,20 @@ http://<JenkinsServerIP>:8080/github-webhook/
 
 # Use Helm to deploy the application on Kubernetes Cluster from CI server.
 1. Jenkinsfile is the MAIN AUTOMATED SCRIPT written in Groovy, to pipeline the events starting from 
-  docker build - to build the image
-  docker push - to push to private docker repository
-  Using helm, Deploy Guestbook application in kubernetes cluster inside development namespace.
-  Using helm, Upgrade Guestbook Application.
-  Rollback of Application is not automated, as part of this script, but can be triggered manually upon failure.
-  Sample command below:
-  #helm del --purge guestbook --tiller-namespace development
+
+docker build - to build the image
+
+docker push - to push to private docker repository
+
+Using helm, Deploy Guestbook application in kubernetes cluster inside development namespace.
+
+Using helm, Upgrade Guestbook Application.
+
+Rollback of Application is not automated, as part of this script, but can be triggered manually upon failure.
+
+Sample command below:
+
+#helm del --purge guestbook --tiller-namespace development
  
  # Create a monitoring namespace in the cluster.
 command: kubectl create ns monitoring
